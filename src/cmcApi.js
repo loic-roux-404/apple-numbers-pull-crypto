@@ -18,22 +18,26 @@ export default {
 
       return url.slice(0, -1);
     },
-    createHeaders() {
-      return Object.entries(this.headers).map(([headerKey, value]) => {
-        return `-H '${headerKey}: ${value}'`;
-      }).join(' ');
+    createHeaders(additionals = {}) {
+      return Object.entries({...this.headers, ...additionals})
+        .map(([headerKey, value]) => `-H '${headerKey}: ${value}'`)
+        .join(' ');
     },
-    getQuotes (symbols) {
+    fetch(url, additionalsHeaders = {}) {
+      const app = Application.currentApplication();
+      app.includeStandardAdditions = true;
+
+      return JSON.parse(
+        app.doShellScript(`curl ${this.createHeaders(additionalsHeaders)} -fsL -G '${url}'`)
+      )
+    },
+    getQuotes(symbols) {
       const url = this.createUrl(
         this.endpoints.quotes,
         { symbol: symbols.join(',') }
       );
 
-      const app = Application.currentApplication();
-      app.includeStandardAdditions = true;
-
-      const script = `curl ${this.createHeaders()} -fsL -G '${url}'`;
-      const { data } = JSON.parse(app.doShellScript(script));
+      const { data } = this.fetch(url)
 
       return data
     }
