@@ -1,18 +1,21 @@
 {
   "name": "pull-cryptos-prices",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "cjxa-scripts": "0.0.13",
     "jxabundler": "^1.0.12"
   },
   "scripts": {
-    "dev": "jxabundler watch",
+    "run-script": "osascript build/pull-cryptos-prices.js",
     "build": "jxabundler -t app",
     "test": "jest",
     "start": "jxabundler watch -t app"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0"
   }
 }

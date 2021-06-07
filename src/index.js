@@ -1,35 +1,31 @@
-const app = Application.currentApplication();
-app.includeStandardAdditions = true;
+// Imports
+import cmcApi from './cmcApi'
 
-function chooseFiles() {
-  return app.chooseFile({
-    withPrompt: "Please select some files to process:",
-    //ofType: ["public.image"],
-    multipleSelectionsAllowed: true,
-  });
-}
-
-function getFilename(path) {
-    const parts = path.toString().split("/");
-    return parts?.[parts.length-1]??'';
-  }
-
-// run on App start
-export function run(argv) {
-  if (argv?.length??0 === 0) {
-    const files = chooseFiles();
-    main(files);
-  } else {
-    const files = argv.map((filepath) => Path(filepath));
-    main(files);
-  }
-}
-
-// drag & drop as AppleScript App saved
-export function openDocuments(docs) {
-  main(docs);
-}
-const main = (files) => {
-  const filelist = files.map(f=>getFilename(f)).join(', ');
-  app.displayDialog("Filenames: " + filelist);
-};
+((options) => {
+    'use strict';
+		
+    const app = Application('Numbers')
+    app.includeStandardAdditions = true
+    
+    const table = app.documents()[0].sheets()[0].tables()[0]
+    const cellsRange = table.cellRange()
+    
+    
+    const quotes = cmcApi.getQuotes(
+        cellsRange
+        .cells()
+        .flatMap(
+            cell => cell.column().address() === 1 ? cell.value() : []
+        )
+    ) 
+            
+    let tmp = {}
+    cellsRange.cells().forEach(cell => {
+        if (cell.column().address() === 1) {
+            tmp = cell.value()
+            return [];
+        } else if (cell.column().address() === 2) { 
+            cell.value = quotes[tmp].quote[cmcApi.defaultsParams.convert].price
+        }
+    })
+})();
