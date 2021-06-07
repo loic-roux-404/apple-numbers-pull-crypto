@@ -1,7 +1,8 @@
 // Imports
 import cmcApi from './cmcApi'
+import { friendlyDate } from './utils/date' 
 
-((options) => {
+(() => {
     'use strict';
 
     const app = Application('Numbers')
@@ -18,13 +19,17 @@ import cmcApi from './cmcApi'
         )
     )
 
-    let tmp = {}
+    let coinObj = {}
+    let quote = {}
     cellsRange.cells().forEach(cell => {
         if (cell.column().address() === 1) {
-            tmp = cell.value()
+            coinObj = quotes[cell.value()]
+            quote = coinObj.quote[cmcApi.defaultsParams.convert]
             return [];
         } else if (cell.column().address() === 2) { 
-            cell.value = quotes[tmp].quote[cmcApi.defaultsParams.convert].price
+            cell.value = quote.price
+        } else if (cell.column().address() === 3) {
+            cell.value = friendlyDate(new Date(coinObj.last_updated))
         }
     })
 })();
