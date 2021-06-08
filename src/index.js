@@ -14,7 +14,7 @@ import { friendlyDate } from './utils/date';
 
     const app = Application('Numbers');
     app.includeStandardAdditions = true;
-
+    // TODO: use a config table
     const table = app.documents()[0].sheets()[0].tables()[0];
     const cellsRange = table.cellRange();
 

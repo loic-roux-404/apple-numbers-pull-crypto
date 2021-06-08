@@ -3,7 +3,7 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    ["@semantic-release/exec", {"publishCmd":"npm run build"}],
+    ["@semantic-release/exec", {"publishCmd":"npm i ; npm run build"}],
     ["@semantic-release/github", {"assets":{"path":"./build"}}]
   ]
 }
