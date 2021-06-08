@@ -2,9 +2,10 @@
 
 Pull crypto prices from **coinmarketcap** in Mac os Apple Numbers 
 
-#### Tools
+#### Tools used
 - jxa (javascript for automation) 
 - Apple Numbers Objective C exposed library
+- [creat-jxa-app](https://github.com/aheissenberger/macos-jxa-bundler/tree/main/packages/create-jxa-app)
 
 ## Usage
 

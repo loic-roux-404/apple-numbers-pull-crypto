@@ -7,6 +7,8 @@
     "jxabundler": "^1.0.12"
   },
   "scripts": {
+    "debug-ci": "ls .; ls */*",
+    "package": "npm i && npm run build; npm run debug-ci;tar zcvf build/$npm_package_name.app.tar.gz ./build/$npm_package_name.js.app/",
     "run-script": "osascript build/pull-cryptos-prices.js",
     "build": "jxabundler -t app",
     "test": "jest",

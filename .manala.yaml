@@ -9,7 +9,7 @@ manala:
 
 # Default vars
 semantic_release:
-    exec: { publishCmd: npm i ; npm run build }
+    exec: 
+        publishCmd: npm run package
     github: 
         assets: [{ path: ./build }, { path: ./assets }]
-
