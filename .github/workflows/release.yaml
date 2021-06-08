@@ -1,0 +1,51 @@
+name: Bump version and release
+
+on:
+    push:
+        branches:
+            - master
+            - beta
+            - next
+            - next-major
+            - alpha
+            - '*.*.*'
+
+jobs:
+    release:
+
+        name: Publish release - github
+        if: >
+            contains(github.event.head_commit.message, '[skip-release]') == false
+            && contains(github.event.pull_request.labels.*.name, 'skip-release') == false
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: log commit in common
+              run: |
+                git fetch origin;
+                [[ -z $(git branch -a --list origin/beta) ]] && exit 0;
+                [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/beta) ]] \
+                 && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1;
+
+            - uses: actions/setup-node@v2
+            - uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                    ${{ runner.os }}-node-
+
+            -   name: semver plugins
+                run: |
+                  npm install '@semantic-release/changelog' \
+                      '@semantic-release/exec' \
+                      '@semantic-release/commit-analyzer' \
+                      '@semantic-release/github' \
+                      '@semantic-release/release-notes-generator' \
+                       semantic-release
+
+            - name: Semantic Release
+              uses: cycjimmy/semantic-release-action@v2
+              id: tag_version
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

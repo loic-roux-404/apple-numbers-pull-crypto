@@ -1,0 +1,25 @@
+name: Automatic merge
+
+on:
+    check_suite:
+        types:
+            - completed
+
+jobs:
+    auto-merge:
+        name: Automatic merge
+        runs-on: ubuntu-latest
+        steps:
+            - name: Merge suqash for beta branch
+              uses: ridedott/merge-me-action@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  MERGE_METHOD: SQUASH
+              if: github.base_ref == 'beta'
+
+            - name: Rebase for production branch
+              uses: ridedott/merge-me-action@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  MERGE_METHOD: REBASE
+              if: github.base_ref == 'master'
