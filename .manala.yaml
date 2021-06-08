@@ -11,6 +11,4 @@ manala:
 semantic_release:
     exec: { publishCmd: npm run build }
     github: 
-        assets:
-            - { path: ./build/*.js } 
-            - { path: ./build/*.js.app }
+        assets: { path: ./build }
