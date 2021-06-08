@@ -1,10 +1,10 @@
 # Number Pull cryptocurrency prices
 
-Pull crypto prices from **coinmarketcap** in Apple Numbers 
+Pull crypto prices from **coinmarketcap** in Mac os Apple Numbers 
 
 #### Tools
 - jxa (javascript for automation) 
-- Apple Numbers library
+- Apple Numbers Objective C exposed library
 
 ## Usage
 
@@ -28,10 +28,15 @@ In a second part we need to run the jxa script
 - [ ] Config in a Numbers table instead of always taking the first
 - [ ] Refacto index.js script with more SRP functions
 
-## Contrib
+## Contribution
 
 #### To debug :
 
-`npm run build && npm run run-script`
-or `npm run start &` with `npm run script on each edit`
-
+```bash
+npm run build && npm run run-script
+```
+or 
+```bash
+npm run start &;
+npm run run-script # on each edit
+```
