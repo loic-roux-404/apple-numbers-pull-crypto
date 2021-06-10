@@ -4,7 +4,7 @@
 ####################################################################
 
 manala:
-    recipe: ops.cd
+    recipe: dev.jxa
     repository: /Users/loic/Ops/manala-recipes
 
 # Default vars

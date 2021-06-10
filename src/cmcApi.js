@@ -1,7 +1,9 @@
+import { run, getEnv } from "./utils/shell"
+
 export default {
     url: 'pro-api.coinmarketcap.com',
     headers: {
-      'X-CMC_PRO_API_KEY': '57c7edd3-62c2-4172-9c9e-1ee3130f52b2'
+      'X-CMC_PRO_API_KEY': getEnv('CMC_PRO_API_KEY')
     },
     defaultsParams: {
         convert: 'USD',
@@ -24,11 +26,8 @@ export default {
         .join(' ');
     },
     fetch(url, additionalsHeaders = {}) {
-      const app = Application.currentApplication();
-      app.includeStandardAdditions = true;
-
       return JSON.parse(
-        app.doShellScript(`curl ${this.createHeaders(additionalsHeaders)} -fsL -G '${url}'`)
+        run(`curl ${this.createHeaders(additionalsHeaders)} -fsL -G '${url}'`)
       )
     },
     getQuotes(symbols) {

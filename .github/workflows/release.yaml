@@ -12,12 +12,11 @@ on:
 
 jobs:
     release:
-
         name: Publish release - github
         if: >
             contains(github.event.head_commit.message, '[skip-release]') == false
             && contains(github.event.pull_request.labels.*.name, 'skip-release') == false
-        runs-on: ubuntu-latest
+        runs-on: macos-latest
         steps:
             - uses: actions/checkout@v2
             - name: log commit in common
@@ -35,14 +34,17 @@ jobs:
                   restore-keys: |
                     ${{ runner.os }}-node-
 
-            -   name: semver plugins
-                run: |
-                  npm install '@semantic-release/changelog' \
-                      '@semantic-release/exec' \
-                      '@semantic-release/commit-analyzer' \
-                      '@semantic-release/github' \
-                      '@semantic-release/release-notes-generator' \
-                       semantic-release
+            - run: npm i
+            - name: semver plugins
+              env:
+                CMC_PRO_API_KEY: ${{secrets.CMC_PRO_API_KEY}}
+              run: |
+                npm install '@semantic-release/changelog' \
+                    '@semantic-release/exec' \
+                    '@semantic-release/commit-analyzer' \
+                    '@semantic-release/github' \
+                    '@semantic-release/release-notes-generator' \
+                      semantic-release
 
             - name: Semantic Release
               uses: cycjimmy/semantic-release-action@v2

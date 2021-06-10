@@ -2,17 +2,18 @@
   "name": "pull-cryptos-prices",
   "version": "0.1.0",
   "license": "MIT",
+  "source": "src/index.js",
   "dependencies": {
     "cjxa-scripts": "0.0.13",
     "jxabundler": "^1.0.12"
   },
   "scripts": {
-    "debug-ci": "ls .; ls */*",
-    "package": "npm i && npm run build; npm run debug-ci;tar zcvf build/$npm_package_name.app.tar.gz ./build/$npm_package_name.js.app/",
+    "package:app-zip": "zip -r build/$npm_package_name.app.zip build/$npm_package_name.js.app",
+    "package": "npm run build && npm run package:app-zip",
     "run-script": "osascript build/pull-cryptos-prices.js",
     "build": "jxabundler -t app",
     "test": "jest",
-    "start": "jxabundler watch -t app"
+    "start": "npm run build --watch"
   },
   "eslintConfig": {
     "extends": "react-app"

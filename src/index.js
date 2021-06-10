@@ -19,12 +19,10 @@ import { friendlyDate } from './utils/date';
     const cellsRange = table.cellRange();
 
     // Simple Helper
-    const testValidValueCell = cell => {
-        return cell.column().address() === 1 &&
+    const testValidValueCell = cell => cell.column().address() === 1 &&
             cell.row().address() > table.headerRowCount() &&
             cell.row().address() <= (table.rowCount() - table.footerRowCount()) &&
             cell.value() != null;
-    }
 
     const quotes = cmcApi.getQuotes(
         cellsRange
