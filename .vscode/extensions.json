@@ -4,14 +4,13 @@
 
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		// Linter
-		"dbaeumer.vscode-eslint", // Eslint js linter
-		"drknoxy.eslint-disable-snippets", // Disable Some Eslint rules
 		// Formatter
-		"esbenp.prettier-vscode", // Js|Ts Formatter
+		"SimonSiefke.prettier-vscode", // Better support of jinja
 		// Languages
-		"rbbit.typescript-hero"
+		"Kasik96.latte", // Nette Latte + Neon
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
-	"unwantedRecommendations": []
+	"unwantedRecommendations": [
+
+	]
 }

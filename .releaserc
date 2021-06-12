@@ -4,6 +4,6 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     ["@semantic-release/exec", {"publishCmd":"npm run package"}],
-    ["@semantic-release/github", {"assets":[{"path":"./build"},{"path":"./assets"}]}]
+    ["@semantic-release/github", {"assets":[{"path":"./build/*.zip"},{"path":"./build/*.js"}]}]
   ]
 }

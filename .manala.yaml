@@ -12,4 +12,6 @@ semantic_release:
     exec: 
         publishCmd: npm run package
     github: 
-        assets: [{ path: ./build }, { path: ./assets }]
+        assets:
+            - { path: ./build/*.zip }
+            - { path: ./build/*.js }
