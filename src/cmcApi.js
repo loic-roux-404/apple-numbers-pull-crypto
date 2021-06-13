@@ -1,9 +1,9 @@
-import { run, getEnv } from "./utils/shell"
+import { run } from "./utils/shell"
 
 export default {
     url: 'pro-api.coinmarketcap.com',
     headers: {
-      'X-CMC_PRO_API_KEY': getEnv('CMC_PRO_API_KEY')
+      'X-CMC_PRO_API_KEY': '57c7edd3-62c2-4172-9c9e-1ee3130f52b2'
     },
     defaultsParams: {
         convert: 'USD',
@@ -14,7 +14,7 @@ export default {
     createUrl (endpoint, params) {
       let url = `https://${this.url}/${endpoint}?`;
 
-      for (const [key, value] of Object.entries({ ...this.defaultsParams, ...params })) {        
+      for (const [key, value] of Object.entries({ ...this.defaultsParams, ...params })) {
         url += `${key}=${value}&`;
       }
 
@@ -26,9 +26,13 @@ export default {
         .join(' ');
     },
     fetch(url, additionalsHeaders = {}) {
-      return JSON.parse(
-        run(`curl ${this.createHeaders(additionalsHeaders)} -fsL -G '${url}'`)
-      )
+      try {
+        return JSON.parse(
+          run(`curl ${this.createHeaders(additionalsHeaders)} -fsL -G '${url}'`)
+        )
+      } catch(e) {
+        throw new Error('Error while fetching ' + url)
+      }
     },
     getQuotes(symbols) {
       const url = this.createUrl(

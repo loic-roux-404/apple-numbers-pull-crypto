@@ -5,6 +5,7 @@
   "source": "src/index.js",
   "dependencies": {
     "cjxa-scripts": "0.0.13",
+    "crypto-js": "^4.0.0",
     "jxabundler": "^1.0.12"
   },
   "scripts": {

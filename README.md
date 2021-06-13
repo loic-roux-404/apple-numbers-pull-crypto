@@ -1,15 +1,17 @@
 # Number Pull cryptocurrency prices
 
-Pull crypto prices from **coinmarketcap** in Mac os Apple Numbers 
+Pull crypto prices from **coinmarketcap** in Mac os Apple Numbers
 
 #### Tools used
-- jxa (javascript for automation) 
+- jxa (javascript for automation)
 - Apple Numbers Objective C exposed library
 - [creat-jxa-app](https://github.com/aheissenberger/macos-jxa-bundler/tree/main/packages/create-jxa-app)
 
 ## Usage
 
-- First table in first sheet need to be of the form. 
+- name your sheet : 'pull-crypto-sheet'
+- name table(s): 'pull-crypto-table'
+- The table need to be of the form.
 
 |CMC coin symbol | price  | last refresh |
 |:--------------:|-------:|-------------:|
@@ -24,11 +26,6 @@ In a second part we need to run the jxa script
 - **Or** download the the js script in Github release and use it from **cli** :
 `osascript pull-cryptos-prices.js`
 
-## Roadmap
-
-- [ ] Config in a Numbers table instead of always taking the first
-- [ ] Refacto index.js script with more SRP functions
-
 ## Contribution
 
 #### To debug :
@@ -36,7 +33,7 @@ In a second part we need to run the jxa script
 ```bash
 npm run build && npm run run-script
 ```
-or 
+or
 ```bash
 npm run start &;
 npm run run-script # on each edit

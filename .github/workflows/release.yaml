@@ -35,9 +35,8 @@ jobs:
                     ${{ runner.os }}-node-
 
             - run: npm i
+
             - name: semver plugins
-              env:
-                CMC_PRO_API_KEY: ${{secrets.CMC_PRO_API_KEY}}
               run: |
                 npm install '@semantic-release/changelog' \
                     '@semantic-release/exec' \
